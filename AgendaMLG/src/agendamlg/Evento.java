@@ -54,7 +54,7 @@ public class Evento implements Serializable {
     @Column(nullable = false)
     public boolean getValidado		(){return validado	;}	
     public int getValoracion 		(){return valoracion;}
-    public String getUbicacion          (){return ubicacion;}
+    public String getUbicacion      (){return ubicacion;}
     @ManyToMany(mappedBy = "asistencia")
     public List<Usuario> getApuntados  (){return apuntados;}
     
