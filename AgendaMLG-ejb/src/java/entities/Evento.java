@@ -2,8 +2,15 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
-import java.sql.Date;
-import javax.persistence.*;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Evento implements Serializable {
@@ -13,12 +20,12 @@ public class Evento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Temporal(TemporalType.DATE)
-    private Date fecha_inicio;
+    private Date fechaInicio;
     @Temporal(TemporalType.DATE)
-    private Date fecha_fin;  
+    private Date fechaFin;  
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date fecha_entrada;       
+    private Date fechaEntrada;       
     private int valoracion;
     @Column(nullable = false)
     private boolean permanente;
@@ -29,7 +36,7 @@ public class Evento implements Serializable {
     private String ubicacion;
     @ManyToMany(mappedBy = "asistencia")
     private List<Usuario> apuntados;
-
+    
     public Long getId() {
         return id;
     }
@@ -38,78 +45,77 @@ public class Evento implements Serializable {
         this.id = id;
     }
 
-    public Date getFecha_inicio() {
-        return fecha_inicio;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setFecha_inicio(Date fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
-    public Date getFecha_fin() {
-        return fecha_fin;
-    }
-
-    public void setFecha_fin(Date fecha_fin) {
-        this.fecha_fin = fecha_fin;
-    }
-
-    public Date getFecha_entrada() {
-        return fecha_entrada;
-    }
-
-    public void setFecha_entrada(Date fecha_entrada) {
-        this.fecha_entrada = fecha_entrada;
+    public Date getFechaEntrada() {
+        return fechaEntrada;
     }
 
     public int getValoracion() {
         return valoracion;
     }
 
-    public void setValoracion(int valoracion) {
-        this.valoracion = valoracion;
-    }
-
     public boolean isPermanente() {
         return permanente;
-    }
-
-    public void setPermanente(boolean permanente) {
-        this.permanente = permanente;
     }
 
     public boolean isDestacado() {
         return destacado;
     }
 
-    public void setDestacado(boolean destacado) {
-        this.destacado = destacado;
-    }
-
     public boolean isValidado() {
         return validado;
-    }
-
-    public void setValidado(boolean validado) {
-        this.validado = validado;
     }
 
     public String getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
     public List<Usuario> getApuntados() {
         return apuntados;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public void setFechaEntrada(Date fechaEntrada) {
+        this.fechaEntrada = fechaEntrada;
+    }
+
+    public void setValoracion(int valoracion) {
+        this.valoracion = valoracion;
+    }
+
+    public void setPermanente(boolean permanente) {
+        this.permanente = permanente;
+    }
+
+    public void setDestacado(boolean destacado) {
+        this.destacado = destacado;
+    }
+
+    public void setValidado(boolean validado) {
+        this.validado = validado;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public void setApuntados(List<Usuario> apuntados) {
         this.apuntados = apuntados;
     }
-    
 
     @Override
     public int hashCode() {

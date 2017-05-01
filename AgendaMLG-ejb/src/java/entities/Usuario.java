@@ -2,22 +2,30 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-    private String nombre_usuario;
+    private String cuenta;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private String email;
     @ManyToMany
-    @JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "usuario_fk"),
+    @JoinTable(name = "userEvent", joinColumns = @JoinColumn(name = "usuario_fk"),
             inverseJoinColumns = @JoinColumn(name = "evento_fk"))
     private List<Evento> asistencia;
 
@@ -29,24 +37,32 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getNombre_usuario() {
-        return nombre_usuario;
-    }
-
-    public void setNombre_usuario(String nombre_usuario) {
-        this.nombre_usuario = nombre_usuario;
+    public String getCuenta() {
+        return cuenta;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getEmail() {
+        return email;
     }
 
     public List<Evento> getAsistencia() {
         return asistencia;
+    }
+
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setAsistencia(List<Evento> asistencia) {
