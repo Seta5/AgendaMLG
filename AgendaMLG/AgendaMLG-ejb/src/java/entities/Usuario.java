@@ -1,49 +1,55 @@
-package agendamlg;
+package entities;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
-
 @Entity
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Long id;
-    private String nombre_usuario;
-    private String password;
-    private List<Evento> asistencia;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId_usuario() {
-        return id;
-    }
+    private Long id;
     @Column(nullable = false)
-    public String getNombre_usuario(){
-        return nombre_usuario;
-    }
+    private String nombre_usuario;
     @Column(nullable = false)
-    public String getPassword(){
-        return password;
-    }
+    private String password;
     @ManyToMany
     @JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "usuario_fk"),
             inverseJoinColumns = @JoinColumn(name = "evento_fk"))
-    public List<Evento> getAsistencia(){
+    private List<Evento> asistencia;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre_usuario() {
+        return nombre_usuario;
+    }
+
+    public void setNombre_usuario(String nombre_usuario) {
+        this.nombre_usuario = nombre_usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Evento> getAsistencia() {
         return asistencia;
     }
 
-    public void setId_usuario(Long id) {
-        this.id = id;
-    }
-    public void setNombre_usuario(String nombre){
-        this.nombre_usuario = nombre;
-    }
-    public void setPassword(String password){
-        this.password = password;
-    }
-    public void setAsistencia(List<Evento> asistencia){
+    public void setAsistencia(List<Evento> asistencia) {
         this.asistencia = asistencia;
     }
 
@@ -69,7 +75,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "agendamlg.Usuario[ id=" + id + " ]";
+        return "entities.Usuario[ id=" + id + " ]";
     }
     
 }
