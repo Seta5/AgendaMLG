@@ -1,31 +1,46 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Registro</title>
-    </h:head>
-    <h:body>
-        <h:form>
-            <h:panelGrid columns="3">
-                <h:outputText value="Nombre de usuario:"/>
-                <h:inputText id="user" required="true" label="Usuario"/>
-                <h:message for="user" style="color:red"/>
-                <h:outputText value="Email:"/>
-                <h:inputText id="email1" required="true" label="Email"/>
-                <h:message for="email1" style="color:red"/>
-                <h:outputText value="Repetir email:"/>
-                <h:inputText id="email2" required="true" label="Repetición Email"/>
-                <h:message for="email2" style="color:red"/>
-                <h:outputText value="Contraseña:"/>
-                <h:inputSecret id="pass1" required="true" label="Contraseña"/>
-                <h:message for="pass1" style="color:red"/>
-                <h:outputText value="Repetir contraseña:"/>
-                <h:inputSecret id="pass2" required="true" label="Repetición Contraseña"/>
-                <h:message for="pass2" style="color:red"/>
-            </h:panelGrid>
-            <h:commandButton value="Entrar"/>
-        </h:form>
-    </h:body>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="resources/template.xhtml">
+        <ui:define name="title">Registro</ui:define>
+        <ui:define name="site">Agenda de Málaga</ui:define>
+        
+        <ui:define name="content">
+            <h:form>
+                <h:panelGrid columns="3">
+                    <h:outputText value="Nombre de usuario:"/>
+                    <h:inputText id="user" required="true" label="Usuario"
+                                 value="#{registro.cuenta}"/>
+                    <h:message for="user" style="color:red"/>
+                
+                    <h:outputText value="Email:"/>
+                    <h:inputText id="email1" required="true" label="Email"
+                             value="#{registro.email}" validatorMessage="Email incorrecto">
+                        <f:validateRegex pattern="^[a-zA-Z0-9_\.\-]+\@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$"/>
+                    </h:inputText>
+                    <h:message for="email1" style="color:red"/>
+                
+                    <h:outputText value="Repetir email:"/>
+                    <h:inputText id="email2" required="true" label="Repetición Email"
+                             value="#{registro.email2}"/>
+                    <h:message for="email2" style="color:red"/>
+                
+                    <h:outputText value="Contraseña:"/>
+                    <h:inputSecret id="pass1" required="true" label="Contraseña"
+                               value="#{registro.password}"/>
+                    <h:message for="pass1" style="color:red"/>
+                
+                    <h:outputText value="Repetir contraseña:"/>
+                    <h:inputSecret id="pass2" required="true" label="Repetición Contraseña"
+                               value="#{registro.password2}"/>
+                    <h:message for="pass2" style="color:red"/>
+                </h:panelGrid>
+                <h:commandButton value="Entrar" action="#{registro.registrarse()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </html>
 

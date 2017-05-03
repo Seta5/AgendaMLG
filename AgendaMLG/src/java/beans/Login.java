@@ -20,7 +20,7 @@ public class Login{
     
     public Login() {
         System.out.println("logeando");
-        usuarios = new ArrayList<Usuario>();
+        usuarios = new ArrayList<>();
         Usuario user = new Usuario();
         user.setCuenta("saltamontes");
         user.setPassword("aguantetelegram");
