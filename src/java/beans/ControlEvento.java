@@ -32,6 +32,7 @@ public class ControlEvento implements Serializable{
     }
     
     public String siguiente(){
-        return null;
+        if(temporal) return null;
+        else return "main.xhtml";
     }
 }

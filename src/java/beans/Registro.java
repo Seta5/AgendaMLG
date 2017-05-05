@@ -58,20 +58,15 @@ public class Registro {
     }
     
     public String registrarse(){
-        Usuario personilla = null;
-        if(password.equals(password2)){
-            if(email.equals(email2)){
-                personilla = new Usuario();
-                personilla.setCuenta(cuenta);
-                personilla.setEmail(email);
-                personilla.setPassword(password);
-            }else{
-                
-            }
+        //Usuario personilla = null;
+        if(password.equals(password2)&&email.equals(email2)){
+                //personilla = new Usuario();
+                //personilla.setCuenta(cuenta);
+                //personilla.setEmail(email);
+                //personilla.setPassword(password);
         }else{
-            
+            return null;
         }
-        sesion.setUsuario(personilla);
-        return sesion.iniciarSesion();
+        return "login.xhtml";
     }
 }

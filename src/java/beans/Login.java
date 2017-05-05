@@ -22,8 +22,8 @@ public class Login{
         System.out.println("logeando");
         usuarios = new ArrayList<>();
         Usuario user = new Usuario();
-        user.setCuenta("saltamontes");
-        user.setPassword("aguantetelegram");
+        user.setCuenta("patata666");
+        user.setPassword("muysecreto");
         usuarios.add(user);
     }
 
