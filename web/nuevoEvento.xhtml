@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="resources/template.xhtml">
+        <ui:define name="title">Nuevo Evento</ui:define>
+        <ui:define name="site">Agenda de Málaga</ui:define>
+        
+        <ui:define name="perfil">
+            <h:form>
+                <div>Usuario: <h:outputText value="#{sesion.usuario.cuenta}"/></div>
+                <h:commandLink value="Logout" action="#{sesion.logout()}"/>
+            </h:form>
+        </ui:define>
+        
+        <ui:define name="content">
+            <h:form>
+                <h:panelGrid columns="3">
+                    <h:outputText value="Nombre del evento:"/>
+                    <h:inputText id="nombre" required="true" label="Nombre"
+                                 value="#{controlEvento.evento.nombre}"/>
+                    <h:message for="nombre" style="color:red"/>
+                    
+                    <h:outputText value="Descripción:"/>
+                    <h:inputTextarea id="descripcion" value="#{controlEvento.evento.descripcion}"/>
+                    <h:message for="descripcion"/>
+                    
+                    <h:outputText value="Ubicación:"/>
+                    <h:inputText id="ubicacion" required="true" label="Ubicación"
+                                 value="#{controlEvento.evento.ubicacion}"/>
+                    <h:message for="ubicacion" style="color:red"/>
+                    
+                    <h:outputText value="Entidad responsable:"/>
+                    <h:inputText id="responsable" required="true" label="Entidad Responsable"
+                                 value="#{controlEvento.evento.responsable}"/>
+                    <h:message for="responsable" style="color:red"/>
+                    
+                    <h:outputText value="Indica la duración del evento:"/>
+                    <h:selectOneRadio required="true" value="#{controlEvento.temporal}">
+                        <f:selectItem itemLabel="Permanente" itemValue="false"/>
+                        <f:selectItem itemLabel="Temporal" itemValue="true"/>
+                    </h:selectOneRadio>
+                    <div></div>
+                </h:panelGrid>
+                <c:choose>
+                    <c:when test="#{controlEvento.temporal}">
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Fecha de inicio:"/>
+                            <h:inputText id="inicio" required="true" label="Fecha de Inicio"
+                                     value="#{controlEvento.evento.fechaInicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:inputText>
+                            <h:message for="inicio" style="color:red"/>
+                        
+                            <h:outputText value="Fecha de fin:"/>
+                            <h:inputText id="fin" required="true" label="Fecha de Fin"
+                                         value="#{controlEvento.evento.fechaFin}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:inputText>
+                            <h:message for="fin" style="color:red"/>
+                        </h:panelGrid>
+                        <h:button value="Enviar" outcome="main.xhtml"/>
+                    </c:when>
+                    
+                    <c:otherwise>
+                        <h:commandButton value="Siguiente" action="#{controlEvento.siguiente()}"/>
+                    </c:otherwise>
+                </c:choose>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,14 @@
+body{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+h1{
+    color: darkslategray;
+    text-align: center;
+}
+.perfil{
+    text-align: right;
+    border-radius: 5px;
+}
+
+
