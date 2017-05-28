@@ -8,16 +8,16 @@
         <ui:define name="site">Agenda de Málaga</ui:define>
         
         <ui:define name="content">
-            <h:form>
+            <h:form id="formInicio">
                 <h:panelGrid columns="3">
                     <h:outputText value="Usuario:"/>
                     <h:inputText id="user" required="true" label="Usuario" 
-                                 value="#{login.cuenta}"/>
+                                 value="#{login.usuario.cuenta}"/>
                     <h:message for="user" style="color:red"/>
                     
                     <h:outputText value="Contraseña:"/>
                     <h:inputSecret id="pass" required="true" label="Contraseña"
-                                    value="#{login.password}"/>
+                                    value="#{login.usuario.password}"/>
                     <h:message for="pass" style="color:red"/>
                 </h:panelGrid>
                 <h:commandButton value="Entrar" action="#{login.entrar()}"/>

@@ -22,11 +22,6 @@ public class Sesion implements Serializable {
         this.usuario = usuario;
     }
     
-    public String iniciarSesion(){
-        if(usuario == null) return null;
-        else return "main.xhtml";
-    }
-    
     public String logout(){
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().invalidateSession();
