@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -8,14 +9,32 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    public enum Rol{
+        ADMINISTRADOR,
+        PROFESIONAL,
+        AUTORIZADO,
+        LIMITADO
+    }
+    
     @Id
     private String cuenta;
+    @Column(nullable=false)
     private String password;
+    @Column(nullable=false)
     private String email;
-//    @ManyToMany
-//    @JoinTable(name = "userEvent", joinColumns = @JoinColumn(name = "usuario_fk"),
-//            inverseJoinColumns = @JoinColumn(name = "evento_fk"))
-//    private List<Evento> asistencia;
+    @Column(nullable=false)
+    private Rol rol;
+    
+    private String nombre;
+    private String fecha_nacimiento;
+    private String dni;
+    private String direccion;
+    private String telefono;
+    private String organizacion;
+    @ManyToMany
+    @JoinTable(name = "userEvent", joinColumns = @JoinColumn(name = "usuario_fk"),
+            inverseJoinColumns = @JoinColumn(name = "evento_fk"))
+    private List<Evento> asistencia;
 
     public String getCuenta() {
         return cuenta;
@@ -41,13 +60,69 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-//    public List<Evento> getAsistencia() {
-//        return asistencia;
-//    }
+    public Rol getRol() {
+        return rol;
+    }
 
-//    public void setAsistencia(List<Evento> asistencia) {
-//        this.asistencia = asistencia;
-//    }
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(String fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(String organizacion) {
+        this.organizacion = organizacion;
+    }
+
+    public List<Evento> getAsistencia() {
+        return asistencia;
+    }
+
+    public void setAsistencia(List<Evento> asistencia) {
+        this.asistencia = asistencia;
+    }
     
      @Override
     public int hashCode() {

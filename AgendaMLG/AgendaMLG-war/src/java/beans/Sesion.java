@@ -14,15 +14,15 @@ public class Sesion implements Serializable {
     public Sesion() {
     }
 
-    public Usuario getUsuario() {
+    public synchronized Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public synchronized void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
     
-    public String logout(){
+    public synchronized String logout(){
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().invalidateSession();
         usuario = null;

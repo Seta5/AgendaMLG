@@ -13,7 +13,8 @@
                 <c:when test="#{!empty sesion.usuario}">
                     <h:form>
                         <div>Usuario: <h:outputText value="#{sesion.usuario.cuenta}"/></div>
-                        <h:commandLink value="Logout" action="#{sesion.logout()}"/>
+                        <h:link outcome="perfil.xhtml">Perfil de usuario</h:link>
+                        <br/><h:commandLink value="Logout" action="#{sesion.logout()}"/>
                     </h:form>
                 </c:when>
                 

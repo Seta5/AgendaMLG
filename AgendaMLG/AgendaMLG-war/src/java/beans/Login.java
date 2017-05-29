@@ -33,8 +33,8 @@ public class Login{
     
     public String entrar(){
         try{
-            negocio.comprobarUsuario(usuario);
-            sesion.setUsuario(usuario);
+            Usuario registrado = negocio.comprobarUsuario(usuario);
+            sesion.setUsuario(registrado);
         }catch(CuentaException e){
             FacesMessage fm = new FacesMessage("Usuario o contraseña incorrecto.");
             FacesContext.getCurrentInstance().addMessage("formInicio:user", fm);

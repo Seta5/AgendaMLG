@@ -21,6 +21,7 @@ public class Registro {
     
     public Registro(){
         usuario = new Usuario();
+        usuario.setRol(Usuario.Rol.LIMITADO);
     }
     
     public String getPassword2() {

@@ -21,10 +21,11 @@ public class Negocio implements NegocioLocal {
     }
     
     @Override
-    public void comprobarUsuario(Usuario usuario) throws CuentaException{
-        Usuario user = em.find(Usuario.class, usuario.getCuenta());
-        if(user == null || !user.getPassword().equals(usuario.getPassword())){
+    public Usuario comprobarUsuario(Usuario usuario) throws CuentaException{
+        Usuario registrado = em.find(Usuario.class, usuario.getCuenta());
+        if(registrado == null || !registrado.getPassword().equals(usuario.getPassword())){
             throw new CuentaException();
         }
+        return registrado;
     }
 }

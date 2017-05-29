@@ -5,5 +5,9 @@
     <class>entity.Usuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/data.sql"/>
+    </properties>
   </persistence-unit>
 </persistence>

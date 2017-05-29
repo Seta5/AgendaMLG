@@ -31,8 +31,8 @@ public class Evento implements Serializable {
     @Column(nullable = false)
     private boolean validado;
     private String ubicacion;
-//    @ManyToMany(mappedBy = "asistencia")
-//    private List<Usuario> apuntados;
+    @ManyToMany(mappedBy = "asistencia")
+    private List<Usuario> apuntados;
 
     public Long getId() {
         return id;
@@ -106,13 +106,13 @@ public class Evento implements Serializable {
         this.ubicacion = ubicacion;
     }
 
-//    public List<Usuario> getApuntados() {
-//        return apuntados;
-//    }
+    public List<Usuario> getApuntados() {
+        return apuntados;
+    }
 
-//    public void setApuntados(List<Usuario> apuntados) {
-//        this.apuntados = apuntados;
-//    }
+    public void setApuntados(List<Usuario> apuntados) {
+        this.apuntados = apuntados;
+    }
 
     public String getNombre() {
         return nombre;
