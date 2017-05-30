@@ -11,34 +11,70 @@
         <ui:define name="content">
             <h:form id="formRegistro">
                 <h:panelGrid columns="3">
-                    <h:outputText value="Nombre de usuario:"/>
+                    <h:outputText value="Nombre de usuario*:"/>
                     <h:inputText id="user" required="true" label="Usuario"
                                  value="#{registro.usuario.cuenta}"/>
                     <h:message for="user" style="color:red"/>
-                
-                    <h:outputText value="Email:"/>
+                    
+                    <h:outputText value="Nombre completo:"/>
+                    <h:inputText id="nombre"
+                                value="#{registro.usuario.nombre}"/>
+                    <h:message for="nombre" style="color:red"/>
+                            
+                    <h:outputText value="Fecha de nacimiento:"/>
+                    <h:inputText id="fecha"
+                                value="#{registro.usuario.fecha_nacimiento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:inputText>
+                    <h:message for="fecha" style="color:red"/>
+                            
+                    <h:outputText value="DNI ó NIF:"/>
+                    <h:inputText id="dni" value="#{registro.usuario.dni}"
+                                validatorMessage="DNI incorrecto">
+                        <f:validateRegex pattern="[Xx]?[0-9]{8}[a-zA-Z]|"/>
+                    </h:inputText>
+                    <h:message for="dni" style="color:red"/>
+                            
+                    <h:outputText value="Dirección:"/>
+                    <h:inputText id="direccion"
+                                value="#{registro.usuario.direccion}"/>
+                    <h:message for="direccion" style="color:red"/>
+                            
+                    <h:outputText value="Teléfono:"/>
+                    <h:inputText id="telefono"
+                            value="#{registro.usuario.telefono}"/>
+                    <h:message for="telefono" style="color:red"/>
+                            
+                    <h:outputText value="Organización:"/>
+                    <h:inputText id="organizacion"
+                            value="#{registro.usuario.organizacion}"/>
+                    <h:message for="organizacion" style="color:red"/>
+                    
+                    <h:outputText value="Email*:"/>
                     <h:inputText id="email1" required="true" label="Email"
                              value="#{registro.usuario.email}" validatorMessage="Email incorrecto">
                         <f:validateRegex pattern="^[a-zA-Z0-9_\.\-]+\@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"/>
                     </h:inputText>
                     <h:message for="email1" style="color:red"/>
                 
-                    <h:outputText value="Repetir email:"/>
+                    <h:outputText value="Repetir email*:"/>
                     <h:inputText id="email2" required="true" label="Repetición Email"
                              value="#{registro.email2}"/>
                     <h:message for="email2" style="color:red"/>
                 
-                    <h:outputText value="Contraseña:"/>
+                    <h:outputText value="Contraseña*:"/>
                     <h:inputSecret id="pass1" required="true" label="Contraseña"
                                value="#{registro.usuario.password}"/>
                     <h:message for="pass1" style="color:red"/>
                 
-                    <h:outputText value="Repetir contraseña:"/>
+                    <h:outputText value="Repetir contraseña*:"/>
                     <h:inputSecret id="pass2" required="true" label="Repetición Contraseña"
                                    value="#{registro.password2}"/>
                     <h:message for="pass2" style="color:red"/>
                 </h:panelGrid>
                 <h:commandButton value="Entrar" action="#{registro.registrarse()}"/>
+                
+                <div>*Campo obligatorio.</div>
             </h:form>
         </ui:define>
     </ui:composition>

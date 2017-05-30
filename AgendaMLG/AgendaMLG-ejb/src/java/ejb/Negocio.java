@@ -31,13 +31,9 @@ public class Negocio implements NegocioLocal {
         }
         return registrado;
     }
-
     @Override
-    public void modificarUsuario(Usuario usuario) throws CuentaException {
+    public void modificarUsuario(Usuario usuario){
         Usuario user = em.find(Usuario.class, usuario.getCuenta());
-        if(user == null){
-            throw new CuentaException();
-        }
         em.remove(user);
         em.persist(usuario);
         
@@ -59,6 +55,10 @@ public class Negocio implements NegocioLocal {
 
     @Override
     public void registrarEvento(Evento evento) throws EventException {
+        Evento event = em.find(Evento.class, evento.getId());
+        if(event != null){
+            throw new EventException();            
+        }
         em.persist(evento);
     }
 
