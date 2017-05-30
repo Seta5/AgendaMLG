@@ -3,7 +3,10 @@ package beans;
 import ejb.EventException;
 import ejb.NegocioLocal;
 import entity.Evento;
+import static entity.Usuario.Rol.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -18,6 +21,9 @@ public class ControlEvento implements Serializable{
     
     @Inject
     private NegocioLocal negocio;
+    @Inject
+    private Sesion sesion;
+    
     
     public ControlEvento(){
         evento = new Evento();
@@ -41,28 +47,16 @@ public class ControlEvento implements Serializable{
     }
     
     public String siguiente(){
-//        if(temporal) return null;
-//        else return "main.xhtml";
         if(!temporal){
-            try{
-                negocio.registrarEvento(evento);
-                return "main.xhtml";
-            }catch(EventException e){
-                
-            }
+            return "main.xhtml";            
         }
         return null;
     }
     public String enviar(){
-//        if (evento.getFechaInicio().after(evento.getFechaFin())){
-//            FacesMessage fm = new FacesMessage("Fecha de finalización anterior a la de inicio.");
-//            FacesContext.getCurrentInstance().addMessage("evento:fin",fm);
-//            return null;
-//        }
-//        return "main.xhtml";
-//    }
         if (!evento.getFechaInicio().after(evento.getFechaFin())){
             try{
+                varEvento();
+                evento.setPermanente(!temporal);
                 negocio.registrarEvento(evento);
                 return "main.xhtml";
             }catch(EventException e){
@@ -75,4 +69,35 @@ public class ControlEvento implements Serializable{
         }
         return null;
     }
+    public List<Evento> listEvent(){
+        List<Evento> list = null;
+        try{
+            list = negocio.listaEventos();
+        }catch(EventException e){
+            FacesMessage fm = new FacesMessage("Lista de eventos vacía");
+            FacesContext.getCurrentInstance().addMessage("lista:nolist", fm);
+        }
+        return list;
+    }
+    public String borrarEvento(Evento evento){
+        try{
+            negocio.borrarEvento(evento);
+        }catch(EventException e){
+            FacesMessage fm = new FacesMessage("Evento no encontrado en la base de datos");
+            FacesContext.getCurrentInstance().addMessage("lista:nodelete", fm);
+        }
+        
+        return "main.xhtml";
+    }
+    
+    public void varEvento(){
+        evento.setFechaEntrada(new Date());
+        evento.setDestacado(false);
+        if(sesion.getUsuario().getRol()!=LIMITADO){
+            evento.setValidado(true);
+        }else{
+            evento.setValidado(false);
+        }
+    }
+    
 }
