@@ -13,13 +13,15 @@ public class Evento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nombre;
-    private String descripcion;
-    @Column(nullable=false)
-    private String responsable;
+    private String ubicacion;
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
     private Date fechaFin;  
+    private String descripcion;
+    @Column(nullable=false)
+    private String responsable;
+
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date fechaEntrada;       
@@ -30,9 +32,9 @@ public class Evento implements Serializable {
     private boolean destacado;
     @Column(nullable = false)
     private boolean validado;
-    private String ubicacion;
-    @ManyToMany(mappedBy = "asistencia")
-    private List<Usuario> apuntados;
+
+//    @ManyToMany(mappedBy = "asistencia")
+//    private List<Usuario> apuntados;
 
     public Long getId() {
         return id;
@@ -106,13 +108,13 @@ public class Evento implements Serializable {
         this.ubicacion = ubicacion;
     }
 
-    public List<Usuario> getApuntados() {
-        return apuntados;
-    }
+//    public List<Usuario> getApuntados() {
+//        return apuntados;
+//    }
 
-    public void setApuntados(List<Usuario> apuntados) {
-        this.apuntados = apuntados;
-    }
+//    public void setApuntados(List<Usuario> apuntados) {
+//        this.apuntados = apuntados;
+//    }
 
     public String getNombre() {
         return nombre;
@@ -152,10 +154,7 @@ public class Evento implements Serializable {
             return false;
         }
         Evento other = (Evento) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
