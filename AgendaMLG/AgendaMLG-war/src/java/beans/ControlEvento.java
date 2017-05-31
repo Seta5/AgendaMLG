@@ -3,10 +3,11 @@ package beans;
 import ejb.EventException;
 import ejb.NegocioLocal;
 import entity.Evento;
-import static entity.Usuario.Rol.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -47,28 +48,52 @@ public class ControlEvento implements Serializable{
     }
     
     public String siguiente(){
-        if(!temporal){
-            return "main.xhtml";            
-        }
         return null;
     }
+    
+
+
     public String enviar(){
-        if (!evento.getFechaInicio().after(evento.getFechaFin())){
-            try{
-                varEvento();
-                evento.setPermanente(!temporal);
+        evento.setFechaEntrada(new Date());
+        evento.setDestacado(false);
+        evento.setPermanente(!temporal);
+        evento.setValidado(!sesion.isLimitado());
+        
+        if(evento.isPermanente()){
+            evento.setFechaInicio(null);
+            evento.setFechaFin(null);
+            try {
                 negocio.registrarEvento(evento);
-                return "main.xhtml";
-            }catch(EventException e){
-                FacesMessage fm = new FacesMessage("Nombre de evento en uso.");
-                FacesContext.getCurrentInstance().addMessage("evento:nombre", fm);
+            } catch (EventException ex) {
             }
+            return "main.xhtml";
         }else{
-            FacesMessage fm = new FacesMessage("Fecha de finalización anterior a la de inicio.");
-            FacesContext.getCurrentInstance().addMessage("evento:fin",fm);
-        }
-        return null;
+            if((evento.getFechaInicio()==null)||(evento.getFechaFin()==null)){
+                if(evento.getFechaInicio()==null){
+                    FacesMessage fm = new FacesMessage("Indica fecha de inicio del evento.");
+                    FacesContext.getCurrentInstance().addMessage("evento:inicio", fm);					
+                }
+                if(evento.getFechaFin()==null){
+                    FacesMessage fm = new FacesMessage("Indica fecha de finalizacion del evento.");
+                    FacesContext.getCurrentInstance().addMessage("evento:fin", fm);
+                }
+            }else if(evento.getFechaInicio().after(evento.getFechaFin())){
+                FacesMessage fm = new FacesMessage("Fecha de finalización anterior a la de inicio.");
+                FacesContext.getCurrentInstance().addMessage("evento:fin",fm);
+            }else if(evento.getFechaEntrada().after(evento.getFechaFin())){
+                FacesMessage fm = new FacesMessage("Evento ya ha terminado.");
+                FacesContext.getCurrentInstance().addMessage("evento:fin",fm);
+            }else{
+                try {
+                    negocio.registrarEvento(evento);
+                } catch (EventException ex) {
+                }
+                return "main.xhtml";
+            }
+            return null;			
+        }		
     }
+    
     public List<Evento> listEvent(){
         List<Evento> list = null;
         try{
@@ -90,14 +115,6 @@ public class ControlEvento implements Serializable{
         return "main.xhtml";
     }
     
-    public void varEvento(){
-        evento.setFechaEntrada(new Date());
-        evento.setDestacado(false);
-        if(sesion.getUsuario().getRol()!=LIMITADO){
-            evento.setValidado(true);
-        }else{
-            evento.setValidado(false);
-        }
-    }
+
     
 }

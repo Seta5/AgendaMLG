@@ -24,7 +24,23 @@ public class Sesion implements Serializable {
     public Sesion() {
         editando = false;
     }
+    
+    public boolean isLimitado(){
+        return(usuario.getRol() == Usuario.Rol.LIMITADO);        
+    }
 
+    public boolean isAutorizado(){
+        return(usuario.getRol() == Usuario.Rol.AUTORIZADO);        
+    }
+
+    public boolean isAdministrador(){
+        return(usuario.getRol() == Usuario.Rol.ADMINISTRADOR);        
+    }
+
+    public boolean isProfesional(){
+        return(usuario.getRol().equals(Usuario.Rol.PROFESIONAL));        
+    }
+    
     public synchronized Usuario getUsuario() {
         return usuario;
     }
