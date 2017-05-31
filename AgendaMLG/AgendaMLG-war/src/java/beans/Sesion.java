@@ -1,5 +1,6 @@
 package beans;
 
+import ejb.CuentaException;
 import ejb.NegocioLocal;
 import entity.Usuario;
 import javax.inject.Named;
@@ -109,7 +110,10 @@ public class Sesion implements Serializable {
         usuario.setTelefono(modificado.getTelefono());
         editando = false;
         
-        negocio.modificarUsuario(usuario);
+        try {
+            negocio.modificarUsuario(usuario);
+        } catch (CuentaException ex) {
+        }
         return "perfil.xhtml";
     }
     

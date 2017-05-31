@@ -31,64 +31,138 @@
         </div>
         
         <h3>Eventos</h3>
-        <h:form id="lista">
-            <h:dataTable value="#{controlEvento.listEvent()}" var="e">
-                <h:column>
-                    <f:facet name="header">Nombre</f:facet>
-                    <h:outputText value="#{e.nombre}"/>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Ubicacion</f:facet>
-                    <h:outputText value="#{e.ubicacion}"/>
-                </h:column>
-
-                <c:choose>
-                    <c:when test="#{!e.permanente}">                        
-                        <h:column>
-                            <f:facet name="header">Fecha</f:facet>
-                            <h:outputText value="#{e.fechaInicio} - #{e.fechaFin}"/>
-                        </h:column>
-                    </c:when>
+        <div>
                 
-                    <c:otherwise>
+                <h:form id="lista">
+                    <h:dataTable value="#{controlEvento.listEvent()}" var="c">
+ 
                         <h:column>
-                            <f:facet name="header">Fecha</f:facet>
-                            <h:outputText value="Permanente"/>
-                        </h:column>                            
-                    </c:otherwise>
-                </c:choose>       
+                            <f:facet name="header">Nombre</f:facet>
+                            <h:outputText value="#{c.nombre}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Ubicacion</f:facet>
+                            <h:outputText value="#{c.ubicacion}"/>
+                        </h:column>
+
+                        <c:choose>
+                            <c:when test="#{!c.permanente}">                        
+                            <h:column>
+                                <f:facet name="header">Fecha</f:facet>
+                                <h:outputText value="#{c.fechaInicio} - #{c.fechaFin}"/>
+                            </h:column>
+                            </c:when>
+                
+                            <c:otherwise>
+                            <h:column>
+                                <f:facet name="header">Fecha</f:facet>
+                                <h:outputText value="Permanente"/>
+                            </h:column>                            
+                            </c:otherwise>
+                        </c:choose>       
                             
-                <h:column>
-                    <f:facet name="header">Responsable</f:facet>
-                    <h:outputText value="#{e.responsable}"/>
-                </h:column>
+                        <h:column>
+                            <f:facet name="header">Responsable</f:facet>
+                            <h:outputText value="#{c.responsable}"/>
+                        </h:column>
 
-                <h:column>
-                    <f:facet name="header">Descripcion</f:facet>
-                    <h:outputText value="#{e.descripcion}"/>
-                </h:column>
+                        <h:column>
+                            <f:facet name="header">Descripcion</f:facet>
+                            <h:outputText value="#{c.descripcion}"/>
+                        </h:column>
                         
-                <c:choose><c:when test="#{!empty sesion.usuario}">                       
-                    <h:column>
-                        <c:choose><c:when test="#{(sesion.profesional) or (sesion.administrador)}">                   
-                            <h:commandButton value="Modificar" action="#{controlEvento.borrarEvento(e)}"/>
-                            <h:message for="nomod" style="color:red"/>
+                        <c:choose><c:when test="#{!empty sesion.usuario}">                       
+                            <h:column>
+                                <c:choose><c:when test="#{(sesion.profesional) or (sesion.administrador)}">                   
+                                    <h:commandButton value="Modificar" action="#{controlEvento.borrarEvento(c)}"/>
+                                    <h:message for="nomod" style="color:red"/>
+                                </c:when></c:choose>
+                            </h:column>
+                        
+                            <h:column>
+                                <c:choose><c:when test="#{(sesion.profesional) or (sesion.administrador)}">                   
+                                    <h:commandButton value="Eliminar" action="#{controlEvento.borrarEvento(c)}"/>
+                                    <h:message for="nodelete" style="color:red"/>
+                                </c:when></c:choose>
+                            </h:column>
                         </c:when></c:choose>
-                    </h:column>
-
-                    <h:column>
-                        <c:choose><c:when test="#{(sesion.profesional) or (sesion.administrador)}">                   
-                            <h:commandButton value="Eliminar" action="#{controlEvento.borrarEvento(e)}"/>
-                            <h:message for="nodelete" style="color:red"/>
-                        </c:when></c:choose>
-                    </h:column>
-                </c:when></c:choose>
+                        
                     
-            </h:dataTable>
-            <c:choose><c:when test="#{(!empty sesion.usuario) and (!sesion.limitado)}">                   
-                <h:commandButton value="Nuevo Evento" action="nuevoEvento.xhtml"/>
-            </c:when></c:choose>    
-        </h:form>
+                    </h:dataTable>
+                    <c:choose><c:when test="#{(!empty sesion.usuario) and (!sesion.limitado)}">                   
+                        <h:commandButton value="Nuevo Evento" action="nuevoEvento.xhtml"/>
+                    </c:when></c:choose>
+                    
+                </h:form>
+                
+            </div>
+            <div>-Lista de eventos no validados.</div>
+            <div>
+                
+                <h:form id="listaNoVerificada">
+                    <h:dataTable value="#{controlEvento.listNoValid()}" var="u">
+ 
+                        <h:column>
+                            <f:facet name="header">Nombre</f:facet>
+                            <h:outputText value="#{u.nombre}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Ubicacion</f:facet>
+                            <h:outputText value="#{u.ubicacion}"/>
+                        </h:column>
+
+                        <c:choose>
+                            <c:when test="#{!u.permanente}">                        
+                            <h:column>
+                                <f:facet name="header">Fecha</f:facet>
+                                <h:outputText value="#{u.fechaInicio} - #{u.fechaFin}"/>
+                            </h:column>
+                            </c:when>
+                
+                            <c:otherwise>
+                            <h:column>
+                                <f:facet name="header">Fecha</f:facet>
+                                <h:outputText value="Permanente"/>
+                            </h:column>                            
+                            </c:otherwise>
+                        </c:choose>       
+                            
+                        <h:column>
+                            <f:facet name="header">Responsable</f:facet>
+                            <h:outputText value="#{u.responsable}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Descripcion</f:facet>
+                            <h:outputText value="#{u.descripcion}"/>
+                        </h:column>
+                        
+                        <c:choose><c:when test="#{!empty sesion.usuario}">                       
+                            <h:column>
+                                <c:choose><c:when test="#{(sesion.profesional) or (sesion.administrador)}">                   
+                                        <h:commandButton value="Autorizar" action="#{controlEvento.autorizarEvento(u)}"/>
+                                    <h:message for="auth" style="color:red"/>
+                                </c:when></c:choose>
+                            </h:column>
+                        
+                            <h:column>
+                                <c:choose><c:when test="#{(sesion.profesional) or (sesion.administrador)}">                   
+                                    <h:commandButton value="Eliminar" action="#{controlEvento.borrarEvento(u)}"/>
+                                    <h:message for="nodelete" style="color:red"/>
+                                </c:when></c:choose>
+                            </h:column>
+                        </c:when></c:choose>
+                        
+                    
+                    </h:dataTable>
+                    <c:choose><c:when test="#{!empty sesion.usuario}">                   
+                        <h:commandButton value="Nuevo Evento" action="nuevoEvento.xhtml"/>
+                    </c:when></c:choose>
+                    
+                </h:form>
+                
+            </div>
     </h:body>
 </html>

@@ -32,11 +32,12 @@ public class Negocio implements NegocioLocal {
         return registrado;
     }
     @Override
-    public void modificarUsuario(Usuario usuario){
+    public void modificarUsuario(Usuario usuario) throws CuentaException{
         Usuario user = em.find(Usuario.class, usuario.getCuenta());
-        em.remove(user);
-        em.persist(usuario);
-        
+        if(user == null){
+            throw new CuentaException();
+        }
+        em.merge(usuario);
     }
 
     @Override
@@ -48,10 +49,6 @@ public class Negocio implements NegocioLocal {
         em.remove(user);
     }
 
-    @Override
-    public void autorizarUsuario(Usuario usuario) throws CuentaException {
-        throw new CuentaException();
-    }
 
     @Override
     public void registrarEvento(Evento evento) throws EventException {
@@ -64,8 +61,7 @@ public class Negocio implements NegocioLocal {
         if(event == null){
             throw new EventException();            
         }
-        em.remove(event);
-        em.persist(evento);
+        em.merge(evento);
     }
 
     @Override
@@ -78,8 +74,20 @@ public class Negocio implements NegocioLocal {
     }
 
     @Override
-    public List<Evento> listaEventos() {
-        Query query = em.createQuery("SELECT e FROM Evento e");        
+    public List<Evento> listaEventos() throws EventException {
+        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true");        
+        return query.getResultList();        
+    }
+
+    @Override
+    public List<Evento> listaNoVerificada() throws EventException {
+        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=false");
         return query.getResultList();
+    }
+
+    @Override
+    public List<Usuario> listaUsuarios() throws CuentaException {
+        Query query = em.createQuery("SELECT u FROM Usuario u");        
+        return query.getResultList();        
     }
 }

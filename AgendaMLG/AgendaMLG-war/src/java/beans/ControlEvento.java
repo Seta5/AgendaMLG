@@ -89,8 +89,27 @@ public class ControlEvento implements Serializable{
         }
     }
     public List<Evento> listEvent(){
-        return negocio.listaEventos();
+        List<Evento> list = null;
+        try{
+            list = negocio.listaEventos();
+        }catch(EventException e){
+            FacesMessage fm = new FacesMessage("Lista de eventos vacía");
+            FacesContext.getCurrentInstance().addMessage("lista:nolist", fm);
+        }
+        return list;
     }
+    
+    public List<Evento> listNoValid(){
+        List<Evento> list = null;
+        try{
+            list = negocio.listaNoVerificada();
+        }catch(EventException e){
+            FacesMessage fm = new FacesMessage("Lista de eventos vacía");
+            FacesContext.getCurrentInstance().addMessage("lista:nolist", fm);
+        }
+        return list;
+    }
+    
     public String borrarEvento(Evento evento){
         try{
             negocio.borrarEvento(evento);
@@ -99,6 +118,16 @@ public class ControlEvento implements Serializable{
             FacesContext.getCurrentInstance().addMessage("lista:nodelete", fm);
         }
         
+        return "main.xhtml";
+    }
+    public String autorizarEvento(Evento evento){
+        evento.setValidado(true);
+        try{
+            negocio.modificarEvento(evento);
+        }catch(EventException e){
+            FacesMessage fm = new FacesMessage("Evento no encontrado en la base de datos");
+            FacesContext.getCurrentInstance().addMessage("listaNoVerificada:auth", fm);
+        }
         return "main.xhtml";
     }
     
