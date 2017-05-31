@@ -72,24 +72,24 @@ public class Negocio implements NegocioLocal {
 
     @Override
     public List<Evento> listaEventos() throws EventException {
-        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=false");        
+        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=false ORDER BY e.fechaFin ASC");        
         return query.getResultList();        
     }
 
     public List<Evento> listaActividades() throws EventException {
-        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=true");        
+        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=true ORDER BY e.nombre ASC");        
         return query.getResultList();
     }
     
     @Override
     public List<Evento> listaNoVerificada() throws EventException {
-        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=false");
+        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=false ORDER BY e.fechaEntrada ASC");
         return query.getResultList();
     }
 
     @Override
     public List<Usuario> listaUsuarios() throws CuentaException {
-        Query query = em.createQuery("SELECT u FROM Usuario u");        
+        Query query = em.createQuery("SELECT u FROM Usuario u ORDER BY u.rol ASC, u.cuenta ASC");        
         return query.getResultList();        
     }
 }
