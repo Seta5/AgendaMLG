@@ -26,7 +26,7 @@
             </c:choose>
         </ui:define>
         <ui:define name="content">
-            <div>-Lista de eventos.</div>
+<!--            <div>-Lista de eventos.</div>-->
             <div>
                 
                 <h:form id="lista">
@@ -68,13 +68,25 @@
                             <h:outputText value="#{c.descripcion}"/>
                         </h:column>
                         
+                        <c:choose><c:when test="#{!empty sesion.usuario}">                       
+                            <h:column>
+                                <c:choose><c:when test="#{(sesion.profesional) or (sesion.administrador)}">                   
+                                    <h:commandButton value="Modificar" action="#{controlEvento.borrarEvento(c)}"/>
+                                    <h:message for="nomod" style="color:red"/>
+                                </c:when></c:choose>
+                            </h:column>
                         
-                        <h:column>
-                            <h:commandButton value="Eliminar" action="#{controlEvento.borrarEvento(c)}"/>
-                            <h:message for="nodelete" style="color:red"/>
-                        </h:column>
+                            <h:column>
+                                <c:choose><c:when test="#{(sesion.profesional) or (sesion.administrador)}">                   
+                                    <h:commandButton value="Eliminar" action="#{controlEvento.borrarEvento(c)}"/>
+                                    <h:message for="nodelete" style="color:red"/>
+                                </c:when></c:choose>
+                            </h:column>
+                        </c:when></c:choose>
+                        
+                    
                     </h:dataTable>
-                    <c:choose><c:when test="#{(!empty sesion.usuario) and (sesion.usuario.rol!=LIMITADO)}">                   
+                    <c:choose><c:when test="#{(!empty sesion.usuario) and (!sesion.limitado)}">                   
                         <h:commandButton value="Nuevo Evento" action="nuevoEvento.xhtml"/>
                     </c:when></c:choose>
                     
@@ -82,11 +94,11 @@
                 
             </div>
             
-            <h:message for="nolist" style="color: #33ffffed"/>
+<!--        <h:message for="nolist" style="color: #33ffffed"/>
             
             <c:choose><c:when test="#{!empty sesion.usuario}">
-                    <p>Para añadir un evento rellene el siguiente <h:link outcome="nuevoEvento.xhtml">formulario</h:link>.</p>
-            </c:when></c:choose>
+                <p>Para añadir un evento rellene el siguiente <h:link outcome="nuevoEvento.xhtml">formulario</h:link>.</p>
+            </c:when></c:choose>-->
         </ui:define>
     </ui:composition>
 </html>

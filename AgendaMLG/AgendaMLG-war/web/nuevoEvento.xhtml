@@ -12,7 +12,8 @@
         <ui:define name="perfil">
             <h:form>
                 <div>Usuario: <h:outputText value="#{sesion.usuario.cuenta}"/></div>
-                <h:commandLink value="Logout" action="#{sesion.logout()}"/>
+                <h:link outcome="perfil.xhtml">Perfil de usuario</h:link>
+                <br/><h:commandLink value="Logout" action="#{sesion.logout()}"/>
             </h:form>
         </ui:define>
         
@@ -39,7 +40,7 @@
                     <h:message for="responsable" style="color:red"/>
                     
                     <h:outputText value="Indica la duración del evento:"/>
-                    <h:selectOneRadio required="true" value="#{controlEvento.temporal}">
+                    <h:selectOneRadio required="true" value="#{controlEvento.temporal}" onclick="this.form.submit();" valueChangeListener="#{controlEvento.siguiente()}">
                         <f:selectItem itemLabel="Permanente" itemValue="false"/>
                         <f:selectItem itemLabel="Temporal" itemValue="true"/>
                     </h:selectOneRadio>
@@ -49,26 +50,22 @@
                     <c:when test="#{controlEvento.temporal}">
                         <h:panelGrid columns="3">
                             <h:outputText value="Fecha de inicio:"/>
-                            <h:inputText id="inicio" required="true" label="Fecha de Inicio"
+                            <h:inputText id="inicio" required="false" label="Fecha de Inicio"
                                      value="#{controlEvento.evento.fechaInicio}">
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:inputText>
                             <h:message for="inicio" style="color:red"/>
                         
                             <h:outputText value="Fecha de fin:"/>
-                            <h:inputText id="fin" required="true" label="Fecha de Fin"
+                            <h:inputText id="fin" required="false" label="Fecha de Fin"
                                          value="#{controlEvento.evento.fechaFin}">
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </h:inputText>
                             <h:message for="fin" style="color:red"/>
                         </h:panelGrid>
-                        <h:commandButton value="Enviar" action="#{controlEvento.enviar()}"/>
                     </c:when>
-                    
-                    <c:otherwise>
-                        <h:commandButton value="Siguiente" action="#{controlEvento.siguiente()}"/>
-                    </c:otherwise>
                 </c:choose>
+                <h:commandButton value="Enviar" action="#{controlEvento.enviar()}"/>
             </h:form>
         </ui:define>
     </ui:composition>
