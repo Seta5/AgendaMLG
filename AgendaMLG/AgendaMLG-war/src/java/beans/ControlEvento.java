@@ -98,6 +98,16 @@ public class ControlEvento implements Serializable{
         }
         return list;
     }
+    public List<Evento> listAct(){
+        List<Evento> list = null;
+        try{
+            list = negocio.listaActividades();
+        }catch(EventException e){
+            FacesMessage fm = new FacesMessage("Lista de eventos vacía");
+            FacesContext.getCurrentInstance().addMessage("listaAct:nolist", fm);
+        }
+        return list;
+    }
     
     public List<Evento> listNoValid(){
         List<Evento> list = null;
@@ -129,6 +139,12 @@ public class ControlEvento implements Serializable{
             FacesContext.getCurrentInstance().addMessage("listaNoVerificada:auth", fm);
         }
         return "main.xhtml";
+    }
+    public String modificarEvento(Evento evento){
+        setEvento(evento);
+        
+        return "editEvent.xhtml";
+        
     }
     
 }

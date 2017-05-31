@@ -57,10 +57,7 @@ public class Negocio implements NegocioLocal {
 
     @Override
     public void modificarEvento(Evento evento) throws EventException {
-        Evento event = em.find(Evento.class, evento.getId());
-        if(event == null){
-            throw new EventException();            
-        }
+
         em.merge(evento);
     }
 
@@ -75,10 +72,15 @@ public class Negocio implements NegocioLocal {
 
     @Override
     public List<Evento> listaEventos() throws EventException {
-        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true");        
+        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=false");        
         return query.getResultList();        
     }
 
+    public List<Evento> listaActividades() throws EventException {
+        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=true");        
+        return query.getResultList();
+    }
+    
     @Override
     public List<Evento> listaNoVerificada() throws EventException {
         Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=false");

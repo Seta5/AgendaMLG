@@ -15,6 +15,7 @@ public interface NegocioLocal {
     public void modificarEvento(Evento evento) throws EventException;
     public void borrarEvento(Evento evento) throws EventException;
     public List<Evento> listaEventos() throws EventException;
+    public List<Evento> listaActividades() throws EventException;
     public List<Evento> listaNoVerificada() throws EventException;
     public List<Usuario> listaUsuarios() throws CuentaException;
 }

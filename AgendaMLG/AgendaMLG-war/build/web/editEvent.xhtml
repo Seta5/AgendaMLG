@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <h:head>
+        <title>Editar Evento</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <h:link outcome="main.xhtml" style="text-decoration:none">
+            <h1>Agenda de Málaga</h1>
+        </h:link>
+        <hr/>
+        
+        <c:choose>
+            
+            <c:when test="#{!empty sesion.usuario}">
+                <div class="perfil"><h:form>
+                    <div>Usuario: <h:outputText value="#{sesion.usuario.cuenta}"/></div>
+                    <h:link outcome="perfil.xhtml">Configuración</h:link>
+                    <br/><h:commandLink value="Logout" action="#{sesion.logout()}"/>
+                </h:form></div>
+                
+                <h3>Editar Evento</h3>
+                <h:form id="editEvento">
+                    <h:panelGrid columns="3">
+                        <h:outputText value="Nombre del evento:"/>
+                        <h:inputText id="nombre" required="true" label="Nombre"
+                                     value="#{editEvento.evento.nombre}"/>
+                        <h:message for="nombre" style="color:red"/>
+                    
+                        <h:outputText value="Descripción:"/>
+                        <h:inputTextarea id="descripcion" value="#{editEvento.evento.descripcion}"/>
+                        <h:message for="descripcion"/>
+                    
+                        <h:outputText value="Ubicación:"/>
+                        <h:inputText id="ubicacion" required="true" label="Ubicación"
+                                 value="#{editEvento.evento.ubicacion}"/>
+                        <h:message for="ubicacion" style="color:red"/>
+                    
+                        <h:outputText value="Entidad responsable:"/>
+                        <h:inputText id="responsable" required="true" label="Entidad Responsable"
+                                 value="#{editEvento.evento.responsable}"/>
+                        <h:message for="responsable" style="color:red"/>
+                    
+                        <h:outputText value="Indica la duración del evento:"/>
+                        <h:selectOneRadio required="true" value="#{editEvento.temporal}" onclick="this.form.submit();" valueChangeListener="#{editEvento.siguiente()}">
+                            <f:selectItem itemLabel="Permanente" itemValue="false"/>
+                            <f:selectItem itemLabel="Temporal" itemValue="true"/>
+                        </h:selectOneRadio>
+                        <div></div>
+                    </h:panelGrid>
+                    <c:choose>
+                        <c:when test="#{editEvento.temporal}">
+                            <h:panelGrid columns="3">
+                                <h:outputText value="Fecha de inicio:"/>
+                                <h:inputText id="inicio" required="false" label="Fecha de Inicio"
+                                         value="#{editEvento.evento.fechaInicio}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                                <h:message for="inicio" style="color:red"/>
+
+                                <h:outputText value="Fecha de fin:"/>
+                                <h:inputText id="fin" required="false" label="Fecha de Fin"
+                                             value="#{editEvento.evento.fechaFin}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                                <h:message for="fin" style="color:red"/>
+                            </h:panelGrid>
+                        </c:when>
+                    </c:choose>
+                    <h:commandButton value="Realizar cambios" action="#{editEvento.enviar()}"/>
+                </h:form>
+            </c:when>
+            
+            <c:otherwise><div>
+                Esta página está disponible sólo para usuarios registrados.
+                <h:link outcome="login.xhtml">Inicia sesión</h:link>
+                ó <h:link outcome="pagRegistro.xhtml">Regístrate</h:link>
+            </div></c:otherwise>
+        </c:choose>
+    </h:body>
+</html>
+
