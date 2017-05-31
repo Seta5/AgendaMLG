@@ -15,5 +15,5 @@ public interface NegocioLocal {
     public void registrarEvento(Evento evento) throws EventException;
     public void modificarEvento(Evento evento) throws EventException;
     public void borrarEvento(Evento evento) throws EventException;
-    public List<Evento> listaEventos() throws EventException;
+    public List<Evento> listaEventos();
 }

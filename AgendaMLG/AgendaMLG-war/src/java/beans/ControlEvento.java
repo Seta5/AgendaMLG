@@ -6,8 +6,6 @@ import entity.Evento;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -50,9 +48,6 @@ public class ControlEvento implements Serializable{
     public String siguiente(){
         return null;
     }
-    
-
-
     public String enviar(){
         evento.setFechaEntrada(new Date());
         evento.setDestacado(false);
@@ -91,18 +86,10 @@ public class ControlEvento implements Serializable{
                 return "main.xhtml";
             }
             return null;			
-        }		
-    }
-    
-    public List<Evento> listEvent(){
-        List<Evento> list = null;
-        try{
-            list = negocio.listaEventos();
-        }catch(EventException e){
-            FacesMessage fm = new FacesMessage("Lista de eventos vacía");
-            FacesContext.getCurrentInstance().addMessage("lista:nolist", fm);
         }
-        return list;
+    }
+    public List<Evento> listEvent(){
+        return negocio.listaEventos();
     }
     public String borrarEvento(Evento evento){
         try{
@@ -114,7 +101,5 @@ public class ControlEvento implements Serializable{
         
         return "main.xhtml";
     }
-    
-
     
 }

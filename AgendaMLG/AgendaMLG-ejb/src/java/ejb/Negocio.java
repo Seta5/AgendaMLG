@@ -55,10 +55,6 @@ public class Negocio implements NegocioLocal {
 
     @Override
     public void registrarEvento(Evento evento) throws EventException {
-        Evento event = em.find(Evento.class, evento.getId());
-        if(event != null){
-            throw new EventException();            
-        }
         em.persist(evento);
     }
 
@@ -82,12 +78,8 @@ public class Negocio implements NegocioLocal {
     }
 
     @Override
-    public List<Evento> listaEventos() throws EventException {
+    public List<Evento> listaEventos() {
         Query query = em.createQuery("SELECT e FROM Evento e");        
-        if(query.getResultList().isEmpty()){
-            throw new EventException();
-        }else{
-            return query.getResultList();    
-        }
+        return query.getResultList();
     }
 }

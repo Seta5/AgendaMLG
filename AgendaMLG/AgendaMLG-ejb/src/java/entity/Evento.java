@@ -14,23 +14,25 @@ public class Evento implements Serializable {
     private Long id;
     private String nombre;
     private String descripcion;
-    @Column(nullable=false)
-    private String responsable;
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
     private Date fechaFin;  
+    //private int valoracion;
+    private String ubicacion;
+    
+    @Column(nullable=false)
+    private String responsable;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date fechaEntrada;       
-    private int valoracion;
+    private Date fechaEntrada;
     @Column(nullable = false)
     private boolean permanente;
     @Column(nullable = false)
     private boolean destacado;
     @Column(nullable = false)
     private boolean validado;
-    private String ubicacion;
+    
     @ManyToMany(mappedBy = "asistencia")
     private List<Usuario> apuntados;
 
@@ -66,13 +68,13 @@ public class Evento implements Serializable {
         this.fechaEntrada = fechaEntrada;
     }
 
-    public int getValoracion() {
-        return valoracion;
-    }
-
-    public void setValoracion(int valoracion) {
-        this.valoracion = valoracion;
-    }
+//    public int getValoracion() {
+//        return valoracion;
+//    }
+//
+//    public void setValoracion(int valoracion) {
+//        this.valoracion = valoracion;
+//    }
 
     public boolean isPermanente() {
         return permanente;
