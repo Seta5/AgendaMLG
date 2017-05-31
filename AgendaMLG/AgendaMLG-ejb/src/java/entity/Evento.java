@@ -17,8 +17,7 @@ public class Evento implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
-    private Date fechaFin;  
-    //private int valoracion;
+    private Date fechaFin;
     private String ubicacion;
     
     @Column(nullable=false)
@@ -29,12 +28,7 @@ public class Evento implements Serializable {
     @Column(nullable = false)
     private boolean permanente;
     @Column(nullable = false)
-    private boolean destacado;
-    @Column(nullable = false)
     private boolean validado;
-    
-    @ManyToMany(mappedBy = "asistencia")
-    private List<Usuario> apuntados;
 
     public Long getId() {
         return id;
@@ -68,28 +62,12 @@ public class Evento implements Serializable {
         this.fechaEntrada = fechaEntrada;
     }
 
-//    public int getValoracion() {
-//        return valoracion;
-//    }
-//
-//    public void setValoracion(int valoracion) {
-//        this.valoracion = valoracion;
-//    }
-
     public boolean isPermanente() {
         return permanente;
     }
 
     public void setPermanente(boolean permanente) {
         this.permanente = permanente;
-    }
-
-    public boolean isDestacado() {
-        return destacado;
-    }
-
-    public void setDestacado(boolean destacado) {
-        this.destacado = destacado;
     }
 
     public boolean isValidado() {
@@ -106,14 +84,6 @@ public class Evento implements Serializable {
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
-    }
-
-    public List<Usuario> getApuntados() {
-        return apuntados;
-    }
-
-    public void setApuntados(List<Usuario> apuntados) {
-        this.apuntados = apuntados;
     }
 
     public String getNombre() {

@@ -51,13 +51,12 @@ public class Negocio implements NegocioLocal {
 
 
     @Override
-    public void registrarEvento(Evento evento) throws EventException {
+    public void registrarEvento(Evento evento){
         em.persist(evento);
     }
 
     @Override
-    public void modificarEvento(Evento evento) throws EventException {
-
+    public void modificarEvento(Evento evento){
         em.merge(evento);
     }
 
@@ -71,25 +70,32 @@ public class Negocio implements NegocioLocal {
     }
 
     @Override
-    public List<Evento> listaEventos() throws EventException {
-        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=false ORDER BY e.fechaFin ASC");        
+    public List<Evento> listaEventos(){
+        Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=false ORDER BY e.fechaFin ASC");
         return query.getResultList();        
     }
 
-    public List<Evento> listaActividades() throws EventException {
+    @Override
+    public List<Evento> listaActividades(){
         Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=true and e.permanente=true ORDER BY e.nombre ASC");        
         return query.getResultList();
     }
-    
+
     @Override
-    public List<Evento> listaNoVerificada() throws EventException {
+    public List<Evento> listaNoVerificada(){
         Query query = em.createQuery("SELECT e FROM Evento e WHERE e.validado=false ORDER BY e.fechaEntrada ASC");
         return query.getResultList();
     }
 
     @Override
-    public List<Usuario> listaUsuarios() throws CuentaException {
-        Query query = em.createQuery("SELECT u FROM Usuario u ORDER BY u.rol ASC, u.cuenta ASC");        
+    public List<Usuario> listaUsuarios() {
+        Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.rol <> 0 ORDER BY u.rol ASC, u.cuenta ASC");        
         return query.getResultList();        
+    }
+    
+    @Override
+    public List<Usuario> listaReducida() {
+        Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.rol=3 or u.rol=2");
+        return query.getResultList();
     }
 }

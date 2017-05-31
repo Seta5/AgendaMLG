@@ -51,7 +51,6 @@ public class EditEvent implements Serializable{
         
     public String modificarEvento(Evento evento){
         setEvento(evento);
-        System.out.println(evento.toString());
         return "editEvent.xhtml";
         
     }
@@ -62,10 +61,7 @@ public class EditEvent implements Serializable{
         if(evento.isPermanente()){
             evento.setFechaInicio(null);
             evento.setFechaFin(null);
-            try {
-                negocio.modificarEvento(evento);
-            } catch (EventException ex) {
-            }
+            negocio.modificarEvento(evento);
             return "main.xhtml";
         }else{
             if((evento.getFechaInicio()==null)||(evento.getFechaFin()==null)){
@@ -84,10 +80,7 @@ public class EditEvent implements Serializable{
                 FacesMessage fm = new FacesMessage("Evento ya ha terminado.");
                 FacesContext.getCurrentInstance().addMessage("editEvento:fin",fm);
             }else{
-                try {
-                    negocio.modificarEvento(evento);
-                } catch (EventException ex) {
-                }
+                negocio.modificarEvento(evento);
                 return "main.xhtml";
             }
             return null;			

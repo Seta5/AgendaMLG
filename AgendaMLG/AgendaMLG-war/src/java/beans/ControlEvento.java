@@ -50,17 +50,13 @@ public class ControlEvento implements Serializable{
     }
     public String enviar(){
         evento.setFechaEntrada(new Date());
-        evento.setDestacado(false);
         evento.setPermanente(!temporal);
         evento.setValidado(!sesion.isLimitado());
         
         if(evento.isPermanente()){
             evento.setFechaInicio(null);
             evento.setFechaFin(null);
-            try {
-                negocio.registrarEvento(evento);
-            } catch (EventException ex) {
-            }
+            negocio.registrarEvento(evento);
             return "main.xhtml";
         }else{
             if((evento.getFechaInicio()==null)||(evento.getFechaFin()==null)){
@@ -79,45 +75,20 @@ public class ControlEvento implements Serializable{
                 FacesMessage fm = new FacesMessage("Evento ya ha terminado.");
                 FacesContext.getCurrentInstance().addMessage("evento:fin",fm);
             }else{
-                try {
-                    negocio.registrarEvento(evento);
-                } catch (EventException ex) {
-                }
+                negocio.registrarEvento(evento);
                 return "main.xhtml";
             }
             return null;			
         }
     }
     public List<Evento> listEvent(){
-        List<Evento> list = null;
-        try{
-            list = negocio.listaEventos();
-        }catch(EventException e){
-            FacesMessage fm = new FacesMessage("Lista de eventos vacía");
-            FacesContext.getCurrentInstance().addMessage("lista:nolist", fm);
-        }
-        return list;
+        return negocio.listaEventos();
     }
     public List<Evento> listAct(){
-        List<Evento> list = null;
-        try{
-            list = negocio.listaActividades();
-        }catch(EventException e){
-            FacesMessage fm = new FacesMessage("Lista de eventos vacía");
-            FacesContext.getCurrentInstance().addMessage("listaAct:nolist", fm);
-        }
-        return list;
+        return negocio.listaActividades();
     }
-    
     public List<Evento> listNoValid(){
-        List<Evento> list = null;
-        try{
-            list = negocio.listaNoVerificada();
-        }catch(EventException e){
-            FacesMessage fm = new FacesMessage("Lista de eventos vacía");
-            FacesContext.getCurrentInstance().addMessage("lista:nolist", fm);
-        }
-        return list;
+        return negocio.listaNoVerificada();
     }
     
     public String borrarEvento(Evento evento){
@@ -132,19 +103,7 @@ public class ControlEvento implements Serializable{
     }
     public String autorizarEvento(Evento evento){
         evento.setValidado(true);
-        try{
-            negocio.modificarEvento(evento);
-        }catch(EventException e){
-            FacesMessage fm = new FacesMessage("Evento no encontrado en la base de datos");
-            FacesContext.getCurrentInstance().addMessage("listaNoVerificada:auth", fm);
-        }
+        negocio.modificarEvento(evento);
         return "main.xhtml";
     }
-    public String modificarEvento(Evento evento){
-        setEvento(evento);
-        
-        return "editEvent.xhtml";
-        
-    }
-    
 }

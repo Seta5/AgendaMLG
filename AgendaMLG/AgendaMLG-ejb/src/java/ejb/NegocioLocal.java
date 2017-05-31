@@ -11,11 +11,12 @@ public interface NegocioLocal {
     public Usuario comprobarUsuario(Usuario usuario) throws CuentaException;
     public void modificarUsuario(Usuario usuario)throws CuentaException;
     public void borrarUsuario(Usuario usuario) throws CuentaException;
-    public void registrarEvento(Evento evento) throws EventException;
-    public void modificarEvento(Evento evento) throws EventException;
+    public void registrarEvento(Evento evento);
+    public void modificarEvento(Evento evento);
     public void borrarEvento(Evento evento) throws EventException;
-    public List<Evento> listaEventos() throws EventException;
-    public List<Evento> listaActividades() throws EventException;
-    public List<Evento> listaNoVerificada() throws EventException;
-    public List<Usuario> listaUsuarios() throws CuentaException;
+    public List<Evento> listaEventos();
+    public List<Evento> listaActividades();
+    public List<Evento> listaNoVerificada();
+    public List<Usuario> listaUsuarios();
+    public List<Usuario> listaReducida();
 }

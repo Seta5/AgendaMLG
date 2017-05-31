@@ -31,10 +31,6 @@ public class Usuario implements Serializable {
     private String direccion;
     private String telefono;
     private String organizacion;
-    @ManyToMany
-    @JoinTable(name = "userEvent", joinColumns = @JoinColumn(name = "usuario_fk"),
-            inverseJoinColumns = @JoinColumn(name = "evento_fk"))
-    private List<Evento> asistencia;
 
     public String getCuenta() {
         return cuenta;
@@ -115,16 +111,8 @@ public class Usuario implements Serializable {
     public void setOrganizacion(String organizacion) {
         this.organizacion = organizacion;
     }
-
-    public List<Evento> getAsistencia() {
-        return asistencia;
-    }
-
-    public void setAsistencia(List<Evento> asistencia) {
-        this.asistencia = asistencia;
-    }
     
-     @Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (cuenta != null ? cuenta.hashCode() : 0);

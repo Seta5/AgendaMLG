@@ -17,102 +17,110 @@
         
         <c:choose>
             <c:when test="#{!empty sesion.usuario}">
-                <div class="perfil"><h:form>
-                    <div>Usuario: <h:outputText value="#{sesion.usuario.cuenta}"/></div>
-                    <h:commandLink value="Logout" action="#{sesion.logout()}"/>
-                </h:form></div>
-                
-                <h:form id="edicion">
-                    <h3>
-                        Perfil de usuario 
-                        <span class="titleLink"><h:commandLink value="Editar" action="#{sesion.comenzarEdicion()}"/></span>
-                    </h3> 
-                
-                    <c:choose><c:when test="#{!sesion.editando}">
-                        <h:panelGrid columns="2">
-                            <h:outputText value="Usuario: "/>
-                            <h:outputText value="#{sesion.usuario.cuenta}"/>
-                            <h:outputText value="Email: "/>
-                            <h:outputText value="#{sesion.usuario.email}"/>
-                            <h:outputText value="Nombre completo: "/>
-                            <h:outputText value="#{sesion.usuario.nombre}"/>
-                            <h:outputText value="Fecha de nacimiento: "/>
-                            <h:outputText value="#{sesion.usuario.fecha_nacimiento}"/>
-                            <h:outputText value="DNI ó NIF: "/>
-                            <h:outputText value="#{sesion.usuario.dni}"/>
-                            <h:outputText value="Dirección: "/>
-                            <h:outputText value="#{sesion.usuario.direccion}"/>
-                            <h:outputText value="Teléfono: "/>
-                            <h:outputText value="#{sesion.usuario.telefono}"/>
-                            <h:outputText value="Organización: "/>
-                            <h:outputText value="#{sesion.usuario.organizacion}"/>
-                            <h:outputText value="Rango: "/>
-                            <h:outputText value="#{sesion.usuario.rol}"/>
-                        </h:panelGrid>
-                    </c:when>
-                    
-                    <c:otherwise>
-                        <h4>Edición</h4>
-                        <h:panelGrid columns="3">
-                            <h:outputText value="Contraseña anterior:"/>
-                            <h:inputSecret id="pass1" required="true" label="Contraseña"
-                                           value="#{sesion.pass}"/>
-                            <h:message for="pass1" style="color:red"/>
-                            
-                            <h:outputText value="Nueva contraseña:"/>
-                            <h:inputSecret id="pass2" value="#{sesion.modificado.password}"/>
-                            <h:message for="pass2" style="color:red"/>
-                            
-                            <h:outputText value="Email:"/>
-                            <h:inputText id="email" value="#{sesion.modificado.email}"
-                                         validatorMessage="Email incorrecto">
-                                <f:validateRegex pattern="^[a-zA-Z0-9_\.\-]+\@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"/>
-                            </h:inputText>
-                            <h:message for="email" style="color:red"/>
-                            
-                            <h:outputText value="Nombre completo:"/>
-                            <h:inputText id="nombre"
-                                value="#{sesion.modificado.nombre}"/>
-                            <h:message for="nombre" style="color:red"/>
-                            
-                            <h:outputText value="Fecha de nacimiento:"/>
-                            <h:inputText id="fecha"
-                                         value="#{sesion.modificado.fecha_nacimiento}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </h:inputText>
-                            <h:message for="fecha" style="color:red"/>
-                            
-                            <h:outputText value="DNI ó NIF:"/>
-                            <h:inputText id="dni" value="#{sesion.modificado.dni}"
-                                         validatorMessage="DNI incorrecto">
-                                <f:validateRegex pattern="[Xx]?[0-9]{8}[a-zA-Z]|"/>
-                            </h:inputText>
-                            <h:message for="dni" style="color:red"/>
-                            
-                            <h:outputText value="Dirección:"/>
-                            <h:inputText id="direccion"
-                                value="#{sesion.modificado.direccion}"/>
-                            <h:message for="direccion" style="color:red"/>
-                            
-                            <h:outputText value="Teléfono:"/>
-                            <h:inputText id="telefono"
-                                value="#{sesion.modificado.telefono}"/>
-                            <h:message for="telefono" style="color:red"/>
-                            
-                            <h:outputText value="Organización:"/>
-                            <h:inputText id="organizacion"
-                                value="#{sesion.modificado.organizacion}"/>
-                            <h:message for="organizacion" style="color:red"/>
-                        </h:panelGrid>
-                        <h:commandButton value="Enviar" action="#{sesion.enviarEdicion()}"/>
-                    </c:otherwise></c:choose>
-                </h:form>
+                <div class="perfil">
+                    <h:form>
+                        <h:commandLink value="Logout" action="#{sesion.logout()}"/>
+                    </h:form>
+                </div>
                 
                 <c:choose>
-                    <c:when test="#{sesion.administrador}">
-                        <h3>Opciones de Administrador</h3>
-                        
+                    <c:when test="#{!sesion.editando}">
+                        <h:form>
+                            <h3>
+                                Perfil de usuario 
+                                <span class="titleLink"><h:commandLink value="Editar" action="#{sesion.comenzarEdicion()}"/></span>
+                            </h3>
+                            
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Usuario: "/>
+                                <h:outputText value="#{sesion.usuario.cuenta}"/>
+                                <h:outputText value="Email: "/>
+                                <h:outputText value="#{sesion.usuario.email}"/>
+                                <h:outputText value="Nombre completo: "/>
+                                <h:outputText value="#{sesion.usuario.nombre}"/>
+                                <h:outputText value="Fecha de nacimiento: "/>
+                                <h:outputText value="#{sesion.usuario.fecha_nacimiento}"/>
+                                <h:outputText value="DNI ó NIF: "/>
+                                <h:outputText value="#{sesion.usuario.dni}"/>
+                                <h:outputText value="Dirección: "/>
+                                <h:outputText value="#{sesion.usuario.direccion}"/>
+                                <h:outputText value="Teléfono: "/>
+                                <h:outputText value="#{sesion.usuario.telefono}"/>
+                                <h:outputText value="Organización: "/>
+                                <h:outputText value="#{sesion.usuario.organizacion}"/>
+                                <h:outputText value="Rango: "/>
+                                <h:outputText value="#{sesion.usuario.rol}"/>
+                            </h:panelGrid>
+                            
+                            <c:choose>
+                                <c:when test="#{sesion.administrador or sesion.profesional}">
+                                    <h3>Opciones de administración</h3>
+                                    <h:link outcome="listaUsuarios.xhtml">Lista de usuarios registrados</h:link>
+                                </c:when>
+                            </c:choose>
+                        </h:form>
                     </c:when>
+                
+                    <c:otherwise>
+                        <h:form id="edicion">
+                            <h3>Edición</h3>
+                            <h:panelGrid columns="3">
+                                <h:panelGroup>
+                                    <h:outputText value="Contraseña anterior:" rendered="#{!sesion.administrando}"/>
+                                    <h:outputText value="Contraseña:" rendered="#{sesion.administrando}"/>
+                                </h:panelGroup>
+                                <h:inputSecret id="pass1" value="#{sesion.pass}"/>
+                                <h:message for="pass1" style="color:red"/>
+
+                                <h:outputText value="Nueva contraseña:"/>
+                                <h:inputSecret id="pass2" value="#{sesion.newPass}"/>
+                                <h:message for="pass2" style="color:red"/>
+
+                                <h:outputText value="Email:"/>
+                                <h:inputText id="email" value="#{sesion.modificado.email}"
+                                             validatorMessage="Email incorrecto">
+                                    <f:validateRegex pattern="^[a-zA-Z0-9_\.\-]+\@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"/>
+                                </h:inputText>
+                                <h:message for="email" style="color:red"/>
+
+                                <h:outputText value="Nombre completo:"/>
+                                <h:inputText id="nombre"
+                                    value="#{sesion.modificado.nombre}"/>
+                                <h:message for="nombre" style="color:red"/>
+
+                                <h:outputText value="Fecha de nacimiento:"/>
+                                <h:inputText id="fecha"
+                                             value="#{sesion.modificado.fecha_nacimiento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                                <h:message for="fecha" style="color:red"/>
+
+                                <h:outputText value="DNI ó NIF:"/>
+                                <h:inputText id="dni" value="#{sesion.modificado.dni}"
+                                             validatorMessage="DNI incorrecto">
+                                    <f:validateRegex pattern="[Xx]?[0-9]{8}[a-zA-Z]|"/>
+                                </h:inputText>
+                                <h:message for="dni" style="color:red"/>
+
+                                <h:outputText value="Dirección:"/>
+                                <h:inputText id="direccion"
+                                    value="#{sesion.modificado.direccion}"/>
+                                <h:message for="direccion" style="color:red"/>
+
+                                <h:outputText value="Teléfono:"/>
+                                <h:inputText id="telefono"
+                                    value="#{sesion.modificado.telefono}"/>
+                                <h:message for="telefono" style="color:red"/>
+
+                                <h:outputText value="Organización:"/>
+                                <h:inputText id="organizacion"
+                                    value="#{sesion.modificado.organizacion}"/>
+                                <h:message for="organizacion" style="color:red"/>
+                            </h:panelGrid>
+                            <h:commandButton value="Enviar" action="#{sesion.enviarEdicion()}"/>
+                            <h:commandButton value="Cancelar" action="#{sesion.cancelarEdicion()}"/>
+                        </h:form>
+                    </c:otherwise>
                 </c:choose>
             </c:when>
             
